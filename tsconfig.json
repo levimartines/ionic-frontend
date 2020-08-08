@@ -21,6 +21,9 @@
     "src/**/*.spec.ts",
     "src/**/__tests__/*.ts"
   ],
+  "outDir": "./dist",
+  "rootDir": "./src",
+  "experimentalDecorators": true,
   "compileOnSave": false,
   "atom": {
     "rewriteTsconfig": false
