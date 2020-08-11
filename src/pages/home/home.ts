@@ -22,6 +22,14 @@ export class HomePage {
     this.menu.swipeEnable(false);
   }
 
+  ionViewDidEnter() {
+    this.auth.refreshToken().subscribe(res => {
+      this.auth.successfulLogin(res.headers.get('Authorization'));
+      this.navCtrl.setRoot('CategoriasPage').then();
+    }, error => {
+    })
+  }
+
   ionViewDidLeave() {
     this.menu.swipeEnable(true);
   }
@@ -30,7 +38,11 @@ export class HomePage {
     this.auth.authenticate(this.creds).subscribe(res => {
       this.auth.successfulLogin(res.headers.get('Authorization'));
       this.navCtrl.setRoot('CategoriasPage').then();
-    }, error => {})
+    }, error => {
+    })
   }
 
+  signup() {
+    this.navCtrl.push('SignupPage');
+  }
 }
