@@ -10,8 +10,17 @@ export class ProdutoService {
   constructor(public http: HttpClient) {
   }
 
+  findById(id: string): Observable<ProdutoDTO> {
+    return this.http.get<ProdutoDTO>(`${API_CONFIG.baseUrl}/produtos/${id}`);
+  }
+
   findByCategoria(categoria_id: string): Observable<ProdutoDTO[]> {
     return this.http.get<ProdutoDTO[]>(`${API_CONFIG.baseUrl}/produtos?categorias=${categoria_id}`);
+  }
+
+  getImageFromBucket(id: string): Observable<any> {
+    let url = `${API_CONFIG.bucketBaseUrl}/prod${id}.jpg`;
+    return this.http.get(url, {responseType: 'blob'});
   }
 
   getSmallImageFromBucket(id: string): Observable<any> {

@@ -21,12 +21,18 @@ export class ProdutosPage {
 
   ionViewDidLoad() {
     let categoria_id = this.navParams.get('categoria_id');
+    if (!categoria_id) {
+      categoria_id = 1;
+    }
     this.produtoService.findByCategoria(categoria_id).subscribe(res => {
       this.items = res['content'];
       this.loadImageUrl();
     });
   }
 
+  showDetail(produto_id: string) {
+    this.navCtrl.push('ProdutoDetailPage', {produto_id});
+  }
 
   loadImageUrl() {
     this.items.forEach(item => {
