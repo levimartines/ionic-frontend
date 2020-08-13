@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {CategoriaService} from "../../services/domain/categoria.service";
 import {CategoriaDTO} from "../../models/categoria.dto";
 import {API_CONFIG} from "../../config/api.config";
@@ -17,14 +17,19 @@ export class CategoriasPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public categoriaService: CategoriaService) {
+    public categoriaService: CategoriaService,
+    public loadingCtrl: LoadingController
+  ) {
   }
 
   ionViewDidLoad() {
+    let loader = this.presentLoading();
     this.categoriaService.findAll().subscribe(
       res => {
         this.items = res;
+        loader.dismiss().then();
       }, err => {
+        loader.dismiss().then();
       }
     );
   }
@@ -33,4 +38,11 @@ export class CategoriasPage {
     this.navCtrl.push('ProdutosPage', {categoria_id});
   }
 
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Carregando..."
+    });
+    loader.present().then();
+    return loader;
+  }
 }
