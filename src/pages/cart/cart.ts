@@ -5,6 +5,7 @@ import {API_CONFIG} from "../../config/api.config";
 import {ProdutoService} from "../../services/domain/produto.service";
 import {CartService} from "../../services/domain/cart.service";
 import {ProdutoDTO} from "../../models/produto.dto";
+import {StorageService} from "../../services/storage.service";
 
 @IonicPage()
 @Component({
@@ -18,8 +19,9 @@ export class CartPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public storage: StorageService,
     public cartService: CartService,
-    public produtoService: ProdutoService) {
+    public produtoService: ProdutoService,) {
   }
 
   ionViewDidLoad() {
@@ -58,4 +60,11 @@ export class CartPage {
     this.navCtrl.setRoot('CategoriasPage').then();
   }
 
+  checkOut() {
+    if (this.storage.getLocalUser() == null) {
+      this.navCtrl.setRoot('HomePage').then();
+    } else {
+      this.navCtrl.push('PickAddressPage').then();
+    }
+  }
 }

@@ -11,8 +11,12 @@ export class ClienteService {
   constructor(public http: HttpClient, public storage: StorageService) {
   }
 
-  findByEmail(email: string): Observable<ClienteDTO> {
-    return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?email=${email}`);
+  findById(id: string): Observable<any> {
+    return this.http.get<any>(`${API_CONFIG.baseUrl}/clientes/${id}`);
+  }
+
+  findByEmail(email: string): Observable<any> {
+    return this.http.get<any>(`${API_CONFIG.baseUrl}/clientes/email?email=${email}`);
   }
 
   getImageFromBucket(id: string): Observable<any> {

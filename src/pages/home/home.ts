@@ -15,7 +15,10 @@ export class HomePage {
     senha: ""
   }
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService) {
+  constructor(
+    public navCtrl: NavController,
+    public menu: MenuController,
+    public auth: AuthService) {
   }
 
   ionViewWillEnter() {
