@@ -15,6 +15,7 @@ import {StorageService} from "../../services/storage.service";
 export class CartPage {
 
   items: CartItem[];
+  total: number;
 
   constructor(
     public navCtrl: NavController,
@@ -27,6 +28,7 @@ export class CartPage {
   ionViewDidLoad() {
     let cart = this.cartService.getCart();
     this.items = cart.items;
+    this.total = this.cartService.total();
     this.loadImageUrl();
   }
 
@@ -42,18 +44,17 @@ export class CartPage {
 
   removeItem(protudo: ProdutoDTO) {
     this.items = this.cartService.removeProduto(protudo).items;
+    this.total = this.cartService.total();
   }
 
   increaseQuantity(protudo: ProdutoDTO) {
     this.items = this.cartService.increaseQuantity(protudo).items;
+    this.total = this.cartService.total();
   }
 
   decreaseQuantity(protudo: ProdutoDTO) {
     this.items = this.cartService.decreaseQuantity(protudo).items;
-  }
-
-  total(): number {
-    return this.cartService.total();
+    this.total = this.cartService.total();
   }
 
   goOn() {
